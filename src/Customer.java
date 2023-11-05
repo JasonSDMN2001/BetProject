@@ -6,7 +6,7 @@ import java.util.List;
 //Οι παίχτες Gold αντιστοιχούν στην κλάση GoldCustomer, υποκλάση της Customer, με μέγιστο επιτρεπτό όριο πονταρίσματος 1000.
 //Οι παίχτες Platinum αντιστοιχούν στην κλάση PlatinumCustomer, υποκλάση της Customer, με μέγιστο επιτρεπτό όριο πονταρίσματος 2000.
 //Η συγκεκριμένη κλάση θα πρέπει να υλοποιήσει τη διεπαφή IGiveBetList, η οποία επιστρέφει τη λίστα των στοιχημάτων του κάθε παίχτη.
-public class Customer{
+public class Customer implements IGiveBetList{
     private final String name;
     private final List<CustomerBet> customerBetList = new ArrayList<>();
     public Customer(String n) {
@@ -36,5 +36,10 @@ public class Customer{
     }
     public int getMaxStake(){
         return 100;
+    }
+
+    @Override
+    public List<CustomerBet> getCustomerBetList() {
+        return this.customerBetList;
     }
 }
