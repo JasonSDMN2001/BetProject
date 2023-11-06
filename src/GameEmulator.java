@@ -5,6 +5,8 @@ import java.util.Random;
 
 //Η συγκεκριμένη κλάση χρησιμοποιείται κατά την εκτέλεση του προγράμματος, για την τυχαία παραγωγή των αποτελεσμάτων των αγώνων.
 public class GameEmulator {
+    //singleton instance
+    private static GameEmulator instance;
     //Αντικείμενο που μπορεί να χρησιμοποιηθεί για την παραγωγή τυχαίων αριθμών
     Random r = new Random();
     //Η συγκεκριμένη δομή HashMap θα μας βοηθήσει να αντιστοιχήσουμε κάθε αγώνα με ένα αποτέλεσμα.
@@ -23,5 +25,12 @@ public class GameEmulator {
 
     public Map<String, String> getEmulatedGamesResults() {
         return emulatedGamesResults;
+    }
+    //Η μέθοδος επιστρέφει το μοναδικό αντικείμενο της κλάσης GameEmulator
+    public static GameEmulator getInstance() { //TODO make it thread safe, and maybe make it lazy or eager
+        if (instance == null) {
+            instance = new GameEmulator();
+        }
+        return instance;
     }
 }

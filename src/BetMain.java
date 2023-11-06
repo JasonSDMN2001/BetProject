@@ -4,7 +4,7 @@ public class BetMain {
 
     public static void main(String[] args) {
         BetOrganization bo = BetOrganization.getInstance();
-        //Κατά την προσομοίωση ΔΕΝ ζητούνται δεδομένα εισόδου στο πρόγραμμα
+        //Κατά την προσομοίωση ΔΕ ζητούνται δεδομένα εισόδου στο πρόγραμμα
         //Όλα τα δεδομένα είναι hardcoded μέσα στον κώδικά σας
         //1.Δημιουργία διαθέσιμων στοιχημάτων για το ποδόσφαιρο
 

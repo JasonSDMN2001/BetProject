@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BetOrganization {
+    //singleton class
+    private static BetOrganization instance = null;
     //Λίστα με τους διαθέσιμους παίχτες
     private final List<Customer> cList = new ArrayList<>();
     //Λίστα με τα διαθέσιμα στοιχήματα για αγώνες ποδοσφαίρου και μπάσκετ
@@ -24,13 +26,14 @@ public class BetOrganization {
     public void addBet(Bet bet) {
         betList.add(bet);
     }
-    //Η μέθοδος υπολογίζει τα κέρδη του παίχτη που δίδεται ως παράμετρός της.
-    //Πιο συγκεκριμένα, η παράμετρος αφορά στην λίστα στοιχημάτων του εκάστοτε παίχτη
+    //Η μέθοδος υπολογίζει τα κέρδη του παίχτη που δίδεται ως παράμετρoς της.
+    //Πιο συγκεκριμένα, η παράμετρος αφορά στη λίστα στοιχημάτων του εκάστοτε παίχτη
     private double calculateGainsPerCustomer(IGiveBetList customer) {
         //Για κάθε ένα στοίχημα που έχει κάνει ο παίχτης
         //Ψάχνουμε να το αντιστοιχήσουμε με τη λίστα των στοιχημάτων του BetOrganization
         //Στη συνέχεια, εφόσον το βρούμε, κοιτάζουμε αν έχει κερδίσει η επιλογή του παίχτη
         //και αν ναι, προσθέτουμε το ποσό στα κέρδη (επιστρεφόμενη τιμή της μεθόδου)
+        return 0;
     }
     public void showCustomersResults(){
         System.out.println("------------------Results-------------------");
@@ -47,5 +50,12 @@ public class BetOrganization {
     //Το format του αρχείου να είναι ίδιο με την εκτύπωση των αποτελεσμάτων (showCustomersResults)
     public void printCustomersResultsToTextFile(){
 
+    }
+    //Η μέθοδος επιστρέφει το μοναδικό αντικείμενο της κλάσης BetOrganization
+    public static BetOrganization getInstance() { //TODO make it thread safe, and maybe make it lazy or eager
+        if (instance == null) {
+            instance = new BetOrganization();
+        }
+        return instance;
     }
 }
