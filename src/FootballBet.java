@@ -7,7 +7,7 @@ public class FootballBet extends Bet{
     }
     //Η κλάση περιέχει τις διαθέσιμες εκβάσεις ενός αγώνα ποδοσφαίρου.
     //1:Νικήτρια η πρώτη ομάδα, Χ:Ισοπαλία, 2:Νικήτρια η δεύτερη ομάδα
-    static List<String> choices = List.of("1", "X", "2");
+    public static List<String> choices = List.of("1", "X", "2");
 
     //Η μέθοδος επιστρέφει τη λίστα των διαθέσιμων επιλογών για έναν αγώνα ποδοσφαίρου
     public static List<String> getChoices() {

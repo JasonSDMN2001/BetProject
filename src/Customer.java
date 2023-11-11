@@ -9,8 +9,8 @@ import java.util.List;
 public class Customer implements IGiveBetList{
     private final String name;
     private final List<CustomerBet> customerBetList = new ArrayList<>();
-    public Customer(String n) {
-        name = n;
+    private Customer(Builder builder) {
+        this.name = builder.name;
     }
     public String getName() {
         return name;
@@ -27,6 +27,7 @@ public class Customer implements IGiveBetList{
             }
         }
     }
+
     public int getMoneyPlayed(){
         int sum = 0;
         for (CustomerBet customerBet : customerBetList){
@@ -41,5 +42,16 @@ public class Customer implements IGiveBetList{
     @Override
     public List<CustomerBet> getCustomerBetList() {
         return this.customerBetList;
+    }
+    public static class Builder {
+        private final String name;
+
+        public Builder(String name) {
+            this.name = name;
+        }
+
+        public Customer build() {
+            return new Customer(this);
+        }
     }
 }

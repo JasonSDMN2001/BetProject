@@ -20,10 +20,12 @@ public class BetOrganization {
     public List<Bet> getBetList() {
         return betList;
     }
+
+    private BetOrganization(){}
     public void addCustomer(Customer customer) {
         cList.add(customer);
     }
-    public void addBet(Bet bet) {
+    public void addCustomerBet(Bet bet) {
         betList.add(bet);
     }
     //Η μέθοδος υπολογίζει τα κέρδη του παίχτη που δίδεται ως παράμετρoς της.
@@ -33,6 +35,16 @@ public class BetOrganization {
         //Ψάχνουμε να το αντιστοιχήσουμε με τη λίστα των στοιχημάτων του BetOrganization
         //Στη συνέχεια, εφόσον το βρούμε, κοιτάζουμε αν έχει κερδίσει η επιλογή του παίχτη
         //και αν ναι, προσθέτουμε το ποσό στα κέρδη (επιστρεφόμενη τιμή της μεθόδου)
+        double gains = 0;
+        for (CustomerBet customerBet : customer.getCustomerBetList()) {
+            for (Bet bet : betList) {
+                if (bet.getGame().equals(customerBet.getBetName())) {
+                    if (bet.getWinner().equals(customerBet.getChoice())) {
+                        gains += customerBet.getStake() * bet.getOdd();
+                    }
+                }
+            }
+        }
         return 0;
     }
     public void showCustomersResults(){
@@ -52,9 +64,14 @@ public class BetOrganization {
 
     }
     //Η μέθοδος επιστρέφει το μοναδικό αντικείμενο της κλάσης BetOrganization
-    public static BetOrganization getInstance() { //TODO make it thread safe, and maybe make it lazy or eager
+    public static BetOrganization getInstance() {
+        //thread safe lazy implementation
         if (instance == null) {
-            instance = new BetOrganization();
+            synchronized (BetOrganization.class) {
+                if (instance == null) {
+                    instance = new BetOrganization();
+                }
+            }
         }
         return instance;
     }

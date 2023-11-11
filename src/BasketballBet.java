@@ -3,7 +3,7 @@ import java.util.List;
 public class BasketballBet extends Bet{
     //Η κλάση περιέχει τις διαθέσιμες εκβάσεις ενός αγώνα μπάσκετ. 
     //1:Νικήτρια η πρώτη ομάδα, 2:Νικήτρια η δεύτερη ομάδα
-    static List<String> choices = List.of("1", "2");
+    public static List<String> choices = List.of("1", "2");
 
     public BasketballBet(String game, double odd) {
         super(game, odd);
