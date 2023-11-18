@@ -2,6 +2,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class BetOrganization {
     //singleton class
@@ -10,6 +11,8 @@ public class BetOrganization {
     private final List<Customer> cList = new ArrayList<>();
     //Λίστα με τα διαθέσιμα στοιχήματα για αγώνες ποδοσφαίρου και μπάσκετ
     private final List<Bet> betList = new ArrayList<>();
+    private final GameEmulator gameEmulator = GameEmulator.getInstance(); // Assuming you have a getInstance() method in GameEmulator
+
     public boolean checkCustomerBetInList(CustomerBet customerBet){
         for (Bet bet : betList){
             if (bet.getGame().equals(customerBet.getBetName()))
@@ -25,27 +28,28 @@ public class BetOrganization {
     public void addCustomer(Customer customer) {
         cList.add(customer);
     }
-    public void addCustomerBet(Bet bet) {
+    public void addBet(Bet bet) {
         betList.add(bet);
     }
     //Η μέθοδος υπολογίζει τα κέρδη του παίχτη που δίδεται ως παράμετρoς της.
     //Πιο συγκεκριμένα, η παράμετρος αφορά στη λίστα στοιχημάτων του εκάστοτε παίχτη
     private double calculateGainsPerCustomer(IGiveBetList customer) {
-        //Για κάθε ένα στοίχημα που έχει κάνει ο παίχτης
-        //Ψάχνουμε να το αντιστοιχήσουμε με τη λίστα των στοιχημάτων του BetOrganization
-        //Στη συνέχεια, εφόσον το βρούμε, κοιτάζουμε αν έχει κερδίσει η επιλογή του παίχτη
-        //και αν ναι, προσθέτουμε το ποσό στα κέρδη (επιστρεφόμενη τιμή της μεθόδου)
         double gains = 0;
-        for (CustomerBet customerBet : customer.getCustomerBetList()) {
-            for (Bet bet : betList) {
-                if (bet.getGame().equals(customerBet.getBetName())) {
-                    if (bet.getWinner().equals(customerBet.getChoice())) {
+
+        // Get simulated game results
+        for (Map.Entry<String, String> gameResult : gameEmulator.getEmulatedGamesResults().entrySet()) {
+            for (CustomerBet customerBet : customer.getCustomerBetList()) {
+                if (customerBet.getBetName().equals(gameResult.getKey())) {
+                    Bet bet = getBetByName(customerBet.getBetName());
+                    if (customerBet.getChoice().equals(gameResult.getValue())) {
+                        assert bet != null; //if bet.getOdd is null
                         gains += customerBet.getStake() * bet.getOdd();
                     }
                 }
             }
         }
-        return 0;
+
+        return gains;
     }
     public void showCustomersResults(){
         System.out.println("------------------Results-------------------");
@@ -56,6 +60,15 @@ public class BetOrganization {
             System.out.println("Customer gains: "+String.valueOf(calculateGainsPerCustomer(customer)));
         }
         System.out.println("--------------End-of-Results----------------");
+    }
+    // Helper method to get the Bet instance by name
+    private Bet getBetByName(String betName) {
+        for (Bet bet : getBetList()) {
+            if (bet.getGame().equals(betName)) {
+                return bet;
+            }
+        }
+        return null;
     }
     //Εγγραφή των αποτελεσμάτων των παιχτών στο αρχείο κειμένου "bet-results.txt"
     //Το αρχείο αυτό θα αντικαθίσταται από νέο αρχείο, κάθε φορά που εκτελείται το πρόγραμμα (δεν κρατάμε τα προηγούμενα δεδομένα)

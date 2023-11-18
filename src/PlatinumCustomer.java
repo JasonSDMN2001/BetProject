@@ -1,5 +1,5 @@
 public class PlatinumCustomer extends Customer{
-    public PlatinumCustomer(String n) {
+    public PlatinumCustomer(Builder n) {
         super(n);
     }
     @Override

@@ -9,7 +9,7 @@ import java.util.List;
 public class Customer implements IGiveBetList{
     private final String name;
     private final List<CustomerBet> customerBetList = new ArrayList<>();
-    private Customer(Builder builder) {
+    protected Customer(Builder builder) {
         this.name = builder.name;
     }
     public String getName() {
