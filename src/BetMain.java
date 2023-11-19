@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
 public class BetMain {
 
     public static void main(String[] args) {
@@ -20,9 +18,9 @@ public class BetMain {
         //2.Δημιουργία διαθέσιμων στοιχημάτων για το μπάσκετ
         BasketballBet basketballBet = new BasketballBet("Barcelona-Panathinaikos", 2);
         BasketballBet basketballBet2 = new BasketballBet("Real_Madrid-Panathinaikos", 2);
-        //add the football and basketball bets to the betList
-        noviBet.addBet(footballBet); //so that the customers can "see" the available bets
-        noviBet.addBet(footballBet2); //when creating CustomerBets
+        // προσθέτω τα στοιχήματα ποδοσφαίρου και μπάσκετ στην betList
+        noviBet.addBet(footballBet); // Για να μπορούν να δουν οι παίχτες τα διαθέσιμα στοιχήματα
+        noviBet.addBet(footballBet2); //Όταν φτιάχνουν τα CustomerBets τους
         noviBet.addBet(footballBet3);
         noviBet.addBet(basketballBet);
         noviBet.addBet(basketballBet2);
@@ -35,10 +33,9 @@ public class BetMain {
                 .build();
         Customer customer4 = new Customer.Builder("Marios")
                 .build();
-        GoldCustomer goldCustomer = (GoldCustomer) new GoldCustomer.Builder("GoldCustomer")
-                .build();
-        PlatinumCustomer platinumCustomer = (PlatinumCustomer) new PlatinumCustomer.Builder("PlatinumCustomer")
-                .build();
+        GoldCustomer goldCustomer = new GoldCustomer.Builder("Maria").build();
+        PlatinumCustomer platinumCustomer = new PlatinumCustomer.Builder("Elektra").build();
+
         //4.Δημιουργία στοιχημάτων των παιχτών
         customer.addCustomerBet(new CustomerBet.Builder() //anonymous class for speed
                 .betName("Liverpool-Panathinaikos")
@@ -93,7 +90,7 @@ public class BetMain {
         noviBet.showCustomersResults();
 
         //8.Και εγγραφή αυτών σε αρχείο κειμένου
-
+        noviBet.printCustomersResultsToTextFile();
     }
 }
 

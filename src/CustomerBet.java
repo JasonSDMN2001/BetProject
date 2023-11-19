@@ -70,7 +70,6 @@ public class CustomerBet {
         }
 
         public CustomerBet build() {
-            // Perform validation if needed
             return new CustomerBet(this);
         }
 

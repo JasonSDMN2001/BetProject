@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class BetOrganization {
     //singleton class
@@ -51,15 +53,19 @@ public class BetOrganization {
 
         return gains;
     }
-    public void showCustomersResults(){
-        System.out.println("------------------Results-------------------");
-        for (Customer customer : cList){
-            System.out.println("####################################");
-            System.out.println("Customer name: "+customer.getName());
-            System.out.println("Customer money paid: "+customer.getMoneyPlayed());
-            System.out.println("Customer gains: "+String.valueOf(calculateGainsPerCustomer(customer)));
+    public String showCustomersResults(){ //Αλλαγή κώδικα για να μπει κατευθείαν στο αρχείο
+        StringBuilder results = new StringBuilder("------------------Results-------------------\n");
+
+        for (Customer customer : cList) {
+            results.append("####################################\n");
+            results.append("Customer name: ").append(customer.getName()).append("\n");
+            results.append("Customer money paid: ").append(customer.getMoneyPlayed()).append("\n");
+            results.append("Customer gains: ").append(calculateGainsPerCustomer(customer)).append("\n");
         }
-        System.out.println("--------------End-of-Results----------------");
+
+        results.append("--------------End-of-Results----------------\n");
+        System.out.println(results);
+        return results.toString();
     }
     // Helper method to get the Bet instance by name
     private Bet getBetByName(String betName) {
@@ -74,8 +80,14 @@ public class BetOrganization {
     //Το αρχείο αυτό θα αντικαθίσταται από νέο αρχείο, κάθε φορά που εκτελείται το πρόγραμμα (δεν κρατάμε τα προηγούμενα δεδομένα)
     //Το format του αρχείου να είναι ίδιο με την εκτύπωση των αποτελεσμάτων (showCustomersResults)
     public void printCustomersResultsToTextFile(){
-        //Το αρχείο που θα δημιουργηθεί θα έχει το όνομα "bet-results.txt"
-
+        String workingDir = System.getProperty("user.dir");
+        Path binPath = Paths.get(workingDir, "out");
+        String filePath = binPath.resolve("bet-results.txt").toString();
+        try (FileWriter writer = new FileWriter(filePath)) {
+            writer.write(showCustomersResults());
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the exception according to your needs
+        }
     }
     //Η μέθοδος επιστρέφει το μοναδικό αντικείμενο της κλάσης BetOrganization
     public static BetOrganization getInstance() {

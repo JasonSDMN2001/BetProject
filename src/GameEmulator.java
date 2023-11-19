@@ -20,7 +20,6 @@ public class GameEmulator {
     //Η μέθοδος αυτή παράγει τα δεδομένα του HashMap "emulatedGamesResults"
     //π.χ. ότι στον αγώνα ποδοσφαίρου "Βραζιλία-Ν.Κορέα" αντιστοιχεί το αποτέλεσμα "1"
     public void doGameEmulation(){
-        //simulating the games
         //Για κάθε στοίχημα που υπάρχει στο σύστημα
         for (Bet bet : BetOrganization.getInstance().getBetList()){
             //Αν ο αγώνας είναι ποδόσφαιρο
