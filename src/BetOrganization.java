@@ -54,14 +54,17 @@ public class BetOrganization {
         return gains;
     }
     public String showCustomersResults() {
-        StringBuilder result = new StringBuilder("------------------Results-------------------\n");
-        cList.forEach(customer -> result.append("####################################\n")
-                .append("Customer name: ").append(customer.getName()).append("\n")
-                .append("Customer money paid: ").append(customer.getMoneyPlayed()).append("\n")
-                .append("Customer gains: ").append(calculateGainsPerCustomer(customer)).append("\n"));
-        result.append("--------------End-of-Results----------------");
-        System.out.println(result);
-        return result.toString();
+        StringBuilder results = new StringBuilder("------------------Results-------------------\n");
+
+        for (Customer customer : cList) {
+            results.append("####################################\n");
+            results.append("Customer name: ").append(customer.getName()).append("\n");
+            results.append("Customer money paid: ").append(customer.getMoneyPlayed()).append("\n");
+            results.append("Customer gains: ").append(calculateGainsPerCustomer(customer)).append("\n");
+        }
+
+        results.append("--------------End-of-Results----------------\n");
+        return results.toString();
     }
 
     // Helper method to get the Bet instance by name

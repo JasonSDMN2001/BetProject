@@ -99,7 +99,7 @@ public class BetMain {
         gameEmulator.doGameEmulation();
 
         //7.Προβολή συνολικών αποτελεσμάτων παιχτών
-        noviBet.showCustomersResults();
+        System.out.println(noviBet.showCustomersResults());
 
         //8.Και εγγραφή αυτών σε αρχείο κειμένου
         noviBet.printCustomersResultsToTextFile();
