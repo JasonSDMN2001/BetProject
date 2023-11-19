@@ -29,11 +29,13 @@ public class Customer implements IGiveBetList{
     }
 
     public int getMoneyPlayed(){
-        int sum = 0;
+        /*int sum = 0;
         for (CustomerBet customerBet : customerBetList){
             sum+=customerBet.getStake();
         }
-        return sum;
+        return sum;*/ //Αντί για τον παραπάνω κώδικα, μπορούμε να χρησιμοποιήσουμε streams
+        return customerBetList.stream().mapToInt(CustomerBet::getStake).sum();
+
     }
     public int getMaxStake(){
         return 100;

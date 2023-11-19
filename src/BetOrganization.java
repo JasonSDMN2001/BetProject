@@ -53,20 +53,17 @@ public class BetOrganization {
 
         return gains;
     }
-    public String showCustomersResults(){ //Αλλαγή κώδικα για να μπει κατευθείαν στο αρχείο
-        StringBuilder results = new StringBuilder("------------------Results-------------------\n");
-
-        for (Customer customer : cList) {
-            results.append("####################################\n");
-            results.append("Customer name: ").append(customer.getName()).append("\n");
-            results.append("Customer money paid: ").append(customer.getMoneyPlayed()).append("\n");
-            results.append("Customer gains: ").append(calculateGainsPerCustomer(customer)).append("\n");
-        }
-
-        results.append("--------------End-of-Results----------------\n");
-        System.out.println(results);
-        return results.toString();
+    public String showCustomersResults() {
+        StringBuilder result = new StringBuilder("------------------Results-------------------\n");
+        cList.forEach(customer -> result.append("####################################\n")
+                .append("Customer name: ").append(customer.getName()).append("\n")
+                .append("Customer money paid: ").append(customer.getMoneyPlayed()).append("\n")
+                .append("Customer gains: ").append(calculateGainsPerCustomer(customer)).append("\n"));
+        result.append("--------------End-of-Results----------------");
+        System.out.println(result);
+        return result.toString();
     }
+
     // Helper method to get the Bet instance by name
     private Bet getBetByName(String betName) {
         for (Bet bet : getBetList()) {
@@ -83,10 +80,10 @@ public class BetOrganization {
         String workingDir = System.getProperty("user.dir");
         Path binPath = Paths.get(workingDir, "out");
         String filePath = binPath.resolve("bet-results.txt").toString();
-        try (FileWriter writer = new FileWriter(filePath)) {
+        try (FileWriter writer = new FileWriter(filePath,true)) { // append το αρχείο
             writer.write(showCustomersResults());
         } catch (IOException e) {
-            e.printStackTrace(); // Handle the exception according to your needs
+            e.printStackTrace();
         }
     }
     //Η μέθοδος επιστρέφει το μοναδικό αντικείμενο της κλάσης BetOrganization

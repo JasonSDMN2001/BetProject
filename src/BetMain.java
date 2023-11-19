@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class BetMain {
 
@@ -10,7 +11,7 @@ public class BetMain {
         //Όλα τα δεδομένα είναι hardcoded μέσα στον κώδικά σας
         //1.Δημιουργία διαθέσιμων στοιχημάτων για το ποδόσφαιρο
 
-        FootballBet footballBet = new FootballBet("Liverpool-Panathinaikos", 2);
+        /*FootballBet footballBet = new FootballBet("Liverpool-Panathinaikos", 2);
         FootballBet footballBet2 = new FootballBet("Panathinaikos-Olympiakos", 2);
         FootballBet footballBet3 = new FootballBet("Panathinaikos-Makabi_Haifa", 2);
 
@@ -23,16 +24,21 @@ public class BetMain {
         noviBet.addBet(footballBet2); //Όταν φτιάχνουν τα CustomerBets τους
         noviBet.addBet(footballBet3);
         noviBet.addBet(basketballBet);
-        noviBet.addBet(basketballBet2);
+        noviBet.addBet(basketballBet2);*/
+        // faster με stream api
+        Stream.of(
+            new FootballBet("Liverpool-Panathinaikos", 2),
+            new FootballBet("Panathinaikos-Olympiakos", 2),
+            new FootballBet("Panathinaikos-Makabi_Haifa", 2),
+            new BasketballBet("Barcelona-Panathinaikos", 2),
+            new BasketballBet("Real_Madrid-Panathinaikos", 2)
+        )
+        .forEach(noviBet::addBet);
         //3.Δημιουργία παιχτών
-        Customer customer = new Customer.Builder("John")
-                .build();
-        Customer customer2 = new Customer.Builder("George")
-                .build();
-        Customer customer3 = new Customer.Builder("Jason")
-                .build();
-        Customer customer4 = new Customer.Builder("Marios")
-                .build();
+        Customer customer = new Customer.Builder("John").build();
+        Customer customer2 = new Customer.Builder("George").build();
+        Customer customer3 = new Customer.Builder("Jason").build();
+        Customer customer4 = new Customer.Builder("Marios").build();
         GoldCustomer goldCustomer = new GoldCustomer.Builder("Maria").build();
         PlatinumCustomer platinumCustomer = new PlatinumCustomer.Builder("Elektra").build();
 
@@ -64,6 +70,12 @@ public class BetMain {
         goldCustomer.addCustomerBet(new CustomerBet.Builder()
                 .betName("Panathinaikos-Olympiakos")
                 .stake(1000)
+                .choice("1")
+                .betType("Football")
+                .build());
+        customer3.addCustomerBet(new CustomerBet.Builder() //οι πελάτες μπορούν να παίξουν πολλά
+                .betName("Panathinaikos-Olympiakos") //στοιχήματα
+                .stake(100)
                 .choice("1")
                 .betType("Football")
                 .build());
