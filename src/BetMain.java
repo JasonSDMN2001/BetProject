@@ -35,7 +35,10 @@ public class BetMain {
                 .build();
         Customer customer4 = new Customer.Builder("Marios")
                 .build();
-
+        GoldCustomer goldCustomer = (GoldCustomer) new GoldCustomer.Builder("GoldCustomer")
+                .build();
+        PlatinumCustomer platinumCustomer = (PlatinumCustomer) new PlatinumCustomer.Builder("PlatinumCustomer")
+                .build();
         //4.Δημιουργία στοιχημάτων των παιχτών
         customer.addCustomerBet(new CustomerBet.Builder() //anonymous class for speed
                 .betName("Liverpool-Panathinaikos")
@@ -61,11 +64,25 @@ public class BetMain {
                 .choice("2")
                 .betType("Basketball")
                 .build());
+        goldCustomer.addCustomerBet(new CustomerBet.Builder()
+                .betName("Panathinaikos-Olympiakos")
+                .stake(1000)
+                .choice("1")
+                .betType("Football")
+                .build());
+        platinumCustomer.addCustomerBet(new CustomerBet.Builder()
+                .betName("Panathinaikos-Olympiakos")
+                .stake(2000)
+                .choice("1")
+                .betType("Football")
+                .build());
         //5.Προσθήκη παιχτών στο σύστημα
         noviBet.addCustomer(customer);
         noviBet.addCustomer(customer2);
         noviBet.addCustomer(customer3);
         noviBet.addCustomer(customer4);
+        noviBet.addCustomer(goldCustomer);
+        noviBet.addCustomer(platinumCustomer);
         //6.Προσομοίωση αγώνων
         GameEmulator gameEmulator = GameEmulator.getInstance();
 

@@ -74,6 +74,7 @@ public class BetOrganization {
     //Το αρχείο αυτό θα αντικαθίσταται από νέο αρχείο, κάθε φορά που εκτελείται το πρόγραμμα (δεν κρατάμε τα προηγούμενα δεδομένα)
     //Το format του αρχείου να είναι ίδιο με την εκτύπωση των αποτελεσμάτων (showCustomersResults)
     public void printCustomersResultsToTextFile(){
+        //Το αρχείο που θα δημιουργηθεί θα έχει το όνομα "bet-results.txt"
 
     }
     //Η μέθοδος επιστρέφει το μοναδικό αντικείμενο της κλάσης BetOrganization
