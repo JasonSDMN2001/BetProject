@@ -13,7 +13,7 @@ public class BetOrganization {
     private final List<Customer> cList = new ArrayList<>();
     //Λίστα με τα διαθέσιμα στοιχήματα για αγώνες ποδοσφαίρου και μπάσκετ
     private final List<Bet> betList = new ArrayList<>();
-    private final GameEmulator gameEmulator = GameEmulator.getInstance(); // Assuming you have a getInstance() method in GameEmulator
+    private final GameEmulator gameEmulator = GameEmulator.getInstance();
 
     public boolean checkCustomerBetInList(CustomerBet customerBet){
         for (Bet bet : betList){
@@ -37,12 +37,10 @@ public class BetOrganization {
     //Πιο συγκεκριμένα, η παράμετρος αφορά στη λίστα στοιχημάτων του εκάστοτε παίχτη
     private double calculateGainsPerCustomer(IGiveBetList customer) {
         double gains = 0;
-
-        // Get simulated game results
         for (Map.Entry<String, String> gameResult : gameEmulator.getEmulatedGamesResults().entrySet()) {
             for (CustomerBet customerBet : customer.getCustomerBetList()) {
                 if (customerBet.getBetName().equals(gameResult.getKey())) {
-                    Bet bet = getBetByName(customerBet.getBetName());
+                    Bet bet = getBetByName(customerBet.getBetName()); // για να πάρουμε το odd
                     if (customerBet.getChoice().equals(gameResult.getValue())) {
                         assert bet != null; //if bet.getOdd is null
                         gains += customerBet.getStake() * bet.getOdd();
@@ -67,7 +65,6 @@ public class BetOrganization {
         return results.toString();
     }
 
-    // Helper method to get the Bet instance by name
     private Bet getBetByName(String betName) {
         for (Bet bet : getBetList()) {
             if (bet.getGame().equals(betName)) {
